@@ -414,12 +414,12 @@
                       <button id="next-song-view" title="Next (AI)" class="player-icon"><svg class="w-8 h-8" fill="currentColor" viewBox="0 0 20 20"><path d="M11.553 6.053a1 1 0 011.414 0l4 4a1 1 0 010 1.414l-4 4a1 1 0 01-1.414-1.414L14.586 11H6a1 1 0 110-2h8.586l-3.033-3.033a1 1 0 010-1.414z"/></svg></button>
                  </div>
                  <div class="flex items-center justify-center gap-8 px-2">
-                      <button id="lyrics-toggle-btn" title="Lyrics" class="w-12 h-12 rounded-full flex items-center justify-center player-icon-secondary">
+                       <button id="lyrics-toggle-btn" title="Lyrics" class="w-12 h-12 rounded-full flex items-center justify-center player-icon-secondary">
                            <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.5">
                                <path stroke-linecap="round" stroke-linejoin="round" d="M9 19V6l12-3v13M9 19c0 1.105-1.343 2-3 2s-3-.895-3-2 1.343-2 3-2 3 .895 3 2zm12-3c0 1.105-1.343 2-3 2s-3-.895-3-2 1.343-2 3-2 3 .895 3 2z" />
                            </svg>
-                      </button>
-                      <div id="lofi-toggle-view" class="lofi-toggle"><div class="lofi-toggle-knob"></div></div>
+                       </button>
+                       <div id="lofi-toggle-view" class="lofi-toggle"><div class="lofi-toggle-knob"></div></div>
                  </div>
             </div>
         </div>
@@ -433,7 +433,7 @@
              </button>
              <h3 class="text-2xl font-bold mb-4 text-primary">Song Information</h3>
              <div id="song-info-content" class="space-y-2 text-secondary">
-                 <p>Loading details...</p>
+                  <p>Loading details...</p>
              </div>
         </div>
     </div>
@@ -474,7 +474,7 @@
         }
 
         // --- State Variables ---
-        let audioContext, sourceNode, lofiFilter, lofiGain;
+        let audioContext, sourceNode, reverbNode;
         let slowedReverbEnabled = false;
         let lastSearch = '';
         let currentSearchResults = [];
@@ -710,7 +710,7 @@
 
             if (!audioContext) {
                  try {
-                     audioContext = new (window.AudioContext || window.webkit.AudioContext)();
+                     audioContext = new (window.AudioContext || window.webkitAudioContext)();
                      sourceNode = audioContext.createMediaElementSource(audio);
                      sourceNode.connect(audioContext.destination);
                  } catch(e) { console.error("Failed to create AudioContext", e); }
@@ -1016,20 +1016,47 @@
         function applySlowedReverbEffect() {
             if (!audioContext || !sourceNode) return;
             if (audioContext.state === 'suspended') audioContext.resume();
-            if (!lofiFilter) {
-                lofiFilter = audioContext.createBiquadFilter(); lofiFilter.type = 'lowpass';
-                lofiFilter.frequency.setValueAtTime(4000, audioContext.currentTime);
-                lofiGain = audioContext.createGain(); lofiGain.gain.setValueAtTime(0.8, audioContext.currentTime);
+
+            if (!reverbNode) {
+                reverbNode = audioContext.createConvolver();
+                const impulseLength = 1 * audioContext.sampleRate; // Using 1s reverb tail like S-CLOUD
+                const impulse = audioContext.createBuffer(2, impulseLength, audioContext.sampleRate);
+                const left = impulse.getChannelData(0);
+                const right = impulse.getChannelData(1);
+                for (let i = 0; i < impulseLength; i++) {
+                    // Using an exponential decay for a more natural reverb tail
+                    left[i] = (Math.random() * 2 - 1) * Math.pow(1 - i / impulseLength, 2);
+                    right[i] = (Math.random() * 2 - 1) * Math.pow(1 - i / impulseLength, 2);
+                }
+                reverbNode.buffer = impulse;
             }
+
+            const gainNode = audioContext.createGain();
+            gainNode.gain.setValueAtTime(0.6, audioContext.currentTime); // Matching S-CLOUD dry signal level
+
+            audio.preservesPitch = false;
             audio.playbackRate = 0.9;
-            sourceNode.disconnect(); sourceNode.connect(lofiFilter);
-            lofiFilter.connect(lofiGain); lofiGain.connect(audioContext.destination);
+
+            sourceNode.disconnect();
+            // Connect the 'dry' (original) signal path
+            sourceNode.connect(gainNode);
+            gainNode.connect(audioContext.destination);
+            // Connect the 'wet' (reverb) signal path in parallel
+            sourceNode.connect(reverbNode);
+            reverbNode.connect(audioContext.destination);
         }
 
         function removeSlowedReverbEffect() {
             if (!audioContext || !sourceNode) return;
+            
             audio.playbackRate = 1;
-            sourceNode.disconnect(); sourceNode.connect(audioContext.destination);
+            audio.preservesPitch = true;
+
+            sourceNode.disconnect();
+            if (reverbNode) {
+                reverbNode.disconnect();
+            }
+            sourceNode.connect(audioContext.destination);
         }
         
         // --- AI Recommendation Logic ---
@@ -1143,3 +1170,4 @@ YOUR DIRECTIVES:
     </script>
 </body>
 </html>
+
