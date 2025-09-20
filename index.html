@@ -15,24 +15,19 @@
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
     <style>
         :root {
-            --glow-color-cyan: rgba(0, 225, 255, 0.75);
-            --glow-color-purple: rgba(191, 0, 255, 0.75);
-            --glass-bg: rgba(22, 27, 34, 0.6);
-            --border-color: rgba(255, 255, 255, 0.12);
-            --text-primary: #e6edf3;
-            --text-secondary: #8b949e;
-            --header-bg: rgba(13, 17, 23, 0.7);
-            --body-bg: #0d1117;
-            --card-bg-1: rgba(22, 27, 34, 0.7);
-            --card-bg-2: rgba(13, 17, 23, 0.7);
-            --search-bg: rgba(255, 255, 255, 0.07);
-            --search-focus-bg: rgba(255, 255, 255, 0.1);
+            --accent-color: #F59E0B; /* Amber 500 */
+            --accent-glow: rgba(245, 158, 11, 0.5);
+            --glass-bg: rgba(18, 18, 18, 0.5);
+            --border-color: rgba(255, 255, 255, 0.1);
+            --text-primary: #FFFFFF;
+            --text-secondary: #A7A7A7;
+            --header-bg: rgba(10, 10, 10, 0.7);
+            --body-bg: #000000;
+            --card-bg: #1C1C1C;
+            --search-bg: rgba(255, 255, 255, 0.05);
+            --search-focus-bg: rgba(255, 255, 255, 0.08);
             --button-bg: rgba(255, 255, 255, 0.07);
             --button-hover-bg: rgba(255, 255, 255, 0.12);
-            --body-radial-1: rgba(0, 225, 255, 0.2);
-            --body-radial-2: rgba(191, 0, 255, 0.2);
-            --footer-bg-1: rgba(10, 10, 15, 0.6);
-            --footer-bg-2: rgba(20, 10, 25, 0.6);
         }
 
         /* --- Base & Scrollbar --- */
@@ -41,8 +36,6 @@
             background-color: var(--body-bg);
             color: var(--text-primary);
             -webkit-tap-highlight-color: transparent;
-            background-image: radial-gradient(circle at 15% 15%, var(--body-radial-1) 0%, transparent 30%),
-                              radial-gradient(circle at 85% 80%, var(--body-radial-2) 0%, transparent 35%);
             background-attachment: fixed;
             overflow-x: hidden;
         }
@@ -50,7 +43,7 @@
         ::-webkit-scrollbar { width: 8px; }
         ::-webkit-scrollbar-track { background: #0a0a0a; }
         ::-webkit-scrollbar-thumb {
-            background: linear-gradient(45deg, var(--glow-color-cyan), var(--glow-color-purple));
+            background: var(--accent-color);
             border-radius: 4px;
         }
 
@@ -76,7 +69,7 @@
             backdrop-filter: blur(20px); -webkit-backdrop-filter: blur(20px);
             border-bottom: 1px solid var(--border-color);
             padding-top: env(safe-area-inset-top);
-            box-shadow: 0 2px 20px rgba(0, 225, 255, 0.1);
+            box-shadow: 0 2px 20px rgba(0, 0, 0, 0.2);
         }
         
         #saavn-search-box {
@@ -84,8 +77,8 @@
         }
         #saavn-search-box::placeholder { color: var(--text-secondary); }
         #saavn-search-box:focus {
-            box-shadow: 0 0 20px var(--glow-color-cyan);
-            border-color: var(--glow-color-cyan);
+            box-shadow: 0 0 20px var(--accent-glow);
+            border-color: var(--accent-color);
             background: var(--search-focus-bg);
         }
         
@@ -95,31 +88,24 @@
         }
         .search-query-container::-webkit-scrollbar { display: none; }
         .search-query-button {
-            background-color: var(--button-bg); border: 1px solid var(--border-color); color: var(--text-secondary);
+            background-color: var(--button-bg); 
+            border: 1px solid var(--border-color); 
+            color: var(--text-secondary);
             transition: all 0.3s ease; padding: 6px 14px; margin-right: 10px; border-radius: 9999px; font-size: 14px; cursor: pointer;
         }
         
-        .search-query-button:hover {
-            background: linear-gradient(45deg, rgba(0, 225, 255, 0.2), rgba(191, 0, 255, 0.2));
-            color: var(--text-primary); border-color: var(--glow-color-cyan);
+        .search-query-button:hover, .search-query-button.active {
+            background-color: rgba(245, 158, 11, 0.1);
+            color: var(--text-primary); border-color: var(--accent-color);
             transform: translateY(-2px);
-            box-shadow: 0 0 15px rgba(0, 225, 255, 0.3);
-        }
-
-        .search-query-button.active {
-            background: linear-gradient(45deg, rgba(0, 225, 255, 0.2), rgba(191, 0, 255, 0.2));
-            color: var(--text-primary);
-            border-color: var(--glow-color-cyan);
-            box-shadow: 0 0 15px rgba(0, 225, 255, 0.3);
-            border-bottom-color: var(--header-bg) !important; 
-            margin-bottom: -1px;
+            box-shadow: 0 4px 15px rgba(245, 158, 11, 0.1);
         }
 
         main { padding-top: 150px; padding-bottom: 16rem; }
 
         /* --- Song Cards --- */
         .video-container {
-            background: linear-gradient(145deg, var(--card-bg-1), var(--card-bg-2));
+            background-color: var(--card-bg);
             border: 1px solid var(--border-color);
             border-radius: 1.25rem; overflow: hidden;
             box-shadow: 0 4px 20px rgba(0, 0, 0, 0.2);
@@ -127,9 +113,9 @@
             opacity: 0; transform: translateY(20px);
         }
         .video-container:hover {
-            transform: translateY(-10px) scale(1.05);
-            border-color: var(--glow-color-cyan);
-            box-shadow: 0 0 35px var(--glow-color-cyan), 0 0 15px var(--glow-color-purple);
+            transform: translateY(-10px);
+            border-color: var(--accent-color);
+            box-shadow: 0 0 25px var(--accent-glow);
         }
         .video-container .image-wrapper {
              border-radius: 1rem; overflow: hidden; margin: 0.5rem; position: relative;
@@ -144,10 +130,10 @@
         .video-container:hover img { transform: scale(1.1); }
         .play-icon {
             position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%) scale(0.5);
-            width: 50px; height: 50px; background: rgba(0, 225, 255, 0.8);
+            width: 50px; height: 50px; background: var(--accent-glow);
             border-radius: 50%; display: flex; align-items: center; justify-content: center;
             opacity: 0; transition: all 0.3s ease; backdrop-filter: blur(5px);
-            box-shadow: 0 0 20px var(--glow-color-cyan);
+            box-shadow: 0 0 20px var(--accent-glow);
         }
         .video-container:hover .play-icon { transform: translate(-50%, -50%) scale(1); opacity: 1; }
 
@@ -156,16 +142,18 @@
             width: calc(100% - 2rem); max-width: 800px; bottom: 1rem; left: 50%;
             transform: translateX(-50%); border-radius: 1.5rem; border-top: none;
             padding-bottom: env(safe-area-inset-bottom);
-            background: linear-gradient(45deg, var(--footer-bg-1), var(--footer-bg-2));
         }
 
         #player-image {
             border-radius: 50%; width: 64px; height: 64px; object-fit: cover;
             box-shadow: 0 0 20px rgba(0, 0, 0, 0.7); border: 2px solid var(--border-color);
-            transition: transform 0.3s ease;
+            transition: transform 0.3s ease, border-color 0.3s ease;
         }
          #open-player-trigger:hover #player-image { transform: scale(1.1); }
-        #player-image.playing { animation: spin 12s linear infinite; }
+        #player-image.playing { 
+            animation: spin 12s linear infinite;
+            border-color: var(--accent-color);
+        }
         @keyframes spin { from { transform: rotate(0deg); } to { transform: rotate(360deg); } }
 
         .progress-container {
@@ -176,8 +164,8 @@
         }
 
         .progress-bar {
-            background: linear-gradient(90deg, var(--glow-color-purple), var(--glow-color-cyan));
-            box-shadow: 0 0 8px var(--glow-color-cyan), 0 0 12px var(--glow-color-cyan);
+            background: var(--accent-color);
+            box-shadow: 0 0 8px var(--accent-glow), 0 0 12px var(--accent-glow);
             border-radius: 4px;
         }
         
@@ -191,26 +179,26 @@
         }
         .player-controls button.active {
             color: #ffffff;
-            background: linear-gradient(45deg, var(--glow-color-cyan), var(--glow-color-purple));
-            box-shadow: 0 0 15px var(--glow-color-cyan);
+            background: var(--accent-color);
+            box-shadow: 0 0 15px var(--accent-glow);
         }
         .play-pause-btn {
             width: 60px; height: 60px;
-            background: linear-gradient(45deg, var(--glow-color-cyan), var(--glow-color-purple));
+            background: var(--accent-color);
             color: #ffffff;
-            box-shadow: 0 0 20px rgba(0, 225, 255, 0.5);
+            box-shadow: 0 0 20px var(--accent-glow);
         }
-        .play-pause-btn:hover { transform: scale(1.1); box-shadow: 0 0 30px rgba(0, 225, 255, 0.8); }
+        .play-pause-btn:hover { transform: scale(1.1); box-shadow: 0 0 30px var(--accent-glow); }
 
         .lofi-toggle {
             width: 50px; height: 26px; background-color: var(--button-bg); border-radius: 13px;
             display: flex; align-items: center; padding: 3px; cursor: pointer; transition: background-color 0.3s ease;
         }
-        .lofi-toggle.active { background: linear-gradient(45deg, var(--glow-color-cyan), var(--glow-color-purple)); }
+        .lofi-toggle.active { background: var(--accent-color); }
         .lofi-toggle-knob {
             width: 20px; height: 20px;
             border-radius: 50%; transition: transform 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
-            background-color: #e6edf3;
+            background-color: var(--text-primary);
         }
 
         .lofi-toggle.active .lofi-toggle-knob { transform: translateX(24px); }
@@ -276,8 +264,8 @@
         }
         
         @keyframes slowGlow {
-            0% { text-shadow: 0 0 8px var(--glow-color-cyan), 0 0 16px var(--glow-color-cyan); }
-            100% { text-shadow: 0 0 12px var(--glow-color-cyan), 0 0 24px var(--glow-color-cyan); }
+            0% { text-shadow: 0 0 8px var(--accent-glow), 0 0 16px var(--accent-glow); }
+            100% { text-shadow: 0 0 12px var(--accent-glow), 0 0 24px var(--accent-glow); }
         }
         
         .lyrics-line {
@@ -285,7 +273,7 @@
             opacity: 0.5; font-weight: 600;
         }
         .lyrics-line.active {
-            color: var(--text-primary); transform: scale(1.05); opacity: 1;
+            color: var(--accent-color); transform: scale(1.05); opacity: 1;
             animation: slowGlow 2s ease-in-out infinite alternate;
         }
         
@@ -297,8 +285,8 @@
         }
         #lyrics-toggle-btn.active {
             color: #ffffff;
-            background: linear-gradient(45deg, var(--glow-color-cyan), var(--glow-color-purple));
-            box-shadow: 0 0 15px var(--glow-color-cyan);
+            background: var(--accent-color);
+            box-shadow: 0 0 15px var(--accent-glow);
         }
         
         #song-info-modal { z-index: 110; transition: opacity 0.3s ease, transform 0.3s ease; }
@@ -317,11 +305,11 @@
             <div class="flex items-center justify-between gap-4">
                 <div class="flex items-center flex-shrink-0 gap-4">
                     <img src="https://i.ibb.co/TDt1SgGH/7d41b8ed-0b55-4aef-bc8e-6d20ea913649.jpg" alt="Melofy Logo" class="w-10 h-10 rounded-full shadow-lg">
-                    <h1 class="text-2xl font-bold tracking-wider hidden sm:block" style="text-shadow: 0 0 10px var(--glow-color-cyan);">MELOFY</h1>
+                    <h1 class="text-2xl font-bold tracking-wider hidden sm:block" style="text-shadow: 0 0 10px var(--accent-glow);">MELOFY</h1>
                 </div>
                 <form id="search-form" class="flex w-full max-w-md lg:max-w-lg">
                     <input type="text" id="saavn-search-box" placeholder="Search for artists, songs..." class="w-full p-2.5 rounded-l-full text-base focus:outline-none transition-all duration-300 pl-5">
-                    <button type="submit" class="bg-gradient-to-r from-cyan-500 to-blue-600 hover:from-cyan-600 hover:to-blue-700 text-white font-semibold py-2 px-5 rounded-r-full transition duration-300">
+                    <button type="submit" class="bg-amber-600 hover:bg-amber-700 text-white font-semibold py-2 px-5 rounded-r-full transition duration-300">
                         <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M8 4a4 4 0 100 8 4 4 0 000-8zM2 8a6 6 0 1110.89 3.476l4.817 4.817a1 1 0 01-1.414 1.414l-4.816-4.816A6 6 0 012 8z" clip-rule="evenodd" /></svg>
                     </button>
                 </form>
@@ -341,7 +329,7 @@
 
     <main class="px-4 sm:px-8">
         <div id="saavn-results" class="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 xl:grid-cols-6 gap-6"></div>
-        <button id="loadmore" class="mt-8 bg-gradient-to-r from-cyan-500 to-blue-600 hover:from-cyan-600 hover:to-blue-700 text-white font-semibold py-2.5 px-6 rounded-full transition duration-300 mx-auto block shadow-lg hover:shadow-cyan-500/50">Load More</button>
+        <button id="loadmore" class="mt-8 bg-amber-600 hover:bg-amber-700 text-white font-semibold py-2.5 px-6 rounded-full transition duration-300 mx-auto block shadow-lg hover:shadow-amber-500/50">Load More</button>
     </main>
     
     <div id="message-box" class="fixed top-24 left-1/2 -translate-x-1/2 px-6 py-3 rounded-lg shadow-xl hidden glass-panel" style="z-index: 9999;">
@@ -453,10 +441,10 @@
             if (!msgBox) return;
             const msgText = document.getElementById('message-text');
             
-            msgBox.classList.remove('bg-gradient-to-r', 'from-cyan-500', 'to-blue-600', 'from-red-500', 'to-pink-600');
+            msgBox.classList.remove('bg-gradient-to-r', 'from-amber-500', 'to-orange-600', 'from-red-500', 'to-pink-600');
             
             if (message.startsWith("AI")) {
-                 msgBox.classList.add('bg-gradient-to-r', 'from-cyan-500', 'to-blue-600');
+                 msgBox.classList.add('bg-gradient-to-r', 'from-amber-500', 'to-orange-600');
             } else {
                  msgBox.classList.add('bg-gradient-to-r', 'from-red-500', 'to-pink-600');
             }
@@ -1014,7 +1002,10 @@
         lofiToggleView.addEventListener('click', toggleSlowedReverb);
 
         function applySlowedReverbEffect() {
-            if (!audioContext || !sourceNode) return;
+            if (!audioContext) {
+                 audioContext = new (window.AudioContext || window.webkitAudioContext)();
+                 sourceNode = audioContext.createMediaElementSource(audio);
+            }
             if (audioContext.state === 'suspended') audioContext.resume();
 
             if (!reverbNode) {
