@@ -78,6 +78,10 @@
         .search-query-container {
             display: flex; overflow-x: auto; white-space: nowrap; -webkit-overflow-scrolling: touch;
             scrollbar-width: none; -ms-overflow-style: none;
+            padding-top: 4px; /* Add vertical space for animation */
+            padding-bottom: 8px; /* Add vertical space for shadow */
+            margin-top: 0.875rem; /* Replaces Tailwind's mt-3.5 */
+            margin-bottom: -8px; /* Compensate for the bottom padding to keep layout consistent */
         }
         .search-query-container::-webkit-scrollbar { display: none; }
         .search-query-button {
@@ -311,7 +315,7 @@
                     </button>
                 </form>
             </div>
-            <div class="search-query-container mt-3.5">
+            <div class="search-query-container">
                 <button class="search-query-button">Hindi</button>
                 <button class="search-query-button">English</button>
                 <button class="search-query-button">Punjabi</button>
@@ -1273,4 +1277,3 @@
     </script>
 </body>
 </html>
-
