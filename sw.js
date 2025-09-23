@@ -1,27 +1,67 @@
-// A more robust service worker for caching and dynamic content
-
-const CACHE_NAME = 'melofy-cache-v2'; // Version bumped to trigger update
+const CACHE_NAME = 'melofy-cache-v1';
 const urlsToCache = [
   '/',
-  '/index.html',
-  'https://cdn.tailwindcss.com',
-  'https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&display.swap',
-  'https://i.ibb.co/TDt1SgGH/7d41b8ed-0b55-4aef-bc8e-6d20ea913649.jpg'
+  '/index.html'
+  // Add other static assets here if they are not inlined, e.g., '/style.css'
 ];
 
-// Install event: opens a cache and adds the app shell files to it.
+// Install event: caches the core application shell.
 self.addEventListener('install', event => {
   event.waitUntil(
     caches.open(CACHE_NAME)
       .then(cache => {
-        console.log('Opened cache and caching app shell');
+        console.log('Opened cache');
         return cache.addAll(urlsToCache);
       })
   );
-  self.skipWaiting(); // Force the waiting service worker to become the active one.
+  self.skipWaiting();
 });
 
-// Activate event: cleans up old, unused caches.
+// Fetch event: serves assets from cache first for offline capability.
+self.addEventListener('fetch', event => {
+  // We only want to cache GET requests.
+  if (event.request.method !== 'GET') {
+    return;
+  }
+
+  event.respondWith(
+    caches.match(event.request)
+      .then(response => {
+        // Cache hit - return response
+        if (response) {
+          return response;
+        }
+
+        // Not in cache - fetch from network, then cache it.
+        return fetch(event.request).then(
+          response => {
+            // Check if we received a valid response
+            if(!response || response.status !== 200 || response.type !== 'basic') {
+              return response;
+            }
+
+            // IMPORTANT: Clone the response. A response is a stream
+            // and can only be consumed once. We need one for the browser
+            // and one for the cache.
+            const responseToCache = response.clone();
+
+            caches.open(CACHE_NAME)
+              .then(cache => {
+                // We don't cache API calls to avoid stale data.
+                // Adjust this condition if you have other API endpoints.
+                if (!event.request.url.includes('/search/') && !event.request.url.includes('/lyrics')) {
+                    cache.put(event.request, responseToCache);
+                }
+              });
+
+            return response;
+          }
+        );
+      })
+    );
+});
+
+// Activate event: cleans up old caches.
 self.addEventListener('activate', event => {
   const cacheWhitelist = [CACHE_NAME];
   event.waitUntil(
@@ -29,54 +69,11 @@ self.addEventListener('activate', event => {
       return Promise.all(
         cacheNames.map(cacheName => {
           if (cacheWhitelist.indexOf(cacheName) === -1) {
-            console.log('Deleting old cache:', cacheName);
             return caches.delete(cacheName);
           }
         })
       );
     })
   );
-  return self.clients.claim(); // Take control of all open clients immediately.
-});
-
-
-// Fetch event: implements a cache-first, then network fallback with dynamic caching.
-self.addEventListener('fetch', event => {
-  // We only want to handle GET requests.
-  if (event.request.method !== 'GET') {
-    return;
-  }
-  
-  event.respondWith(
-    caches.match(event.request)
-      .then(cachedResponse => {
-        // If the resource is in the cache, return it.
-        if (cachedResponse) {
-          return cachedResponse;
-        }
-
-        // If not in cache, fetch it from the network.
-        return fetch(event.request)
-          .then(networkResponse => {
-            // A response is a stream and can only be consumed once.
-            // We need to clone it to put one copy in the cache and send one to the browser.
-            const responseToCache = networkResponse.clone();
-
-            caches.open(CACHE_NAME)
-              .then(cache => {
-                // Cache the new resource for future use.
-                // We only cache valid responses to avoid caching errors.
-                if (networkResponse && networkResponse.status === 200) {
-                    cache.put(event.request, responseToCache);
-                }
-              });
-
-            return networkResponse;
-          });
-      }).catch(error => {
-        // Handle cases where both cache and network fail.
-        // You could optionally return a pre-cached offline fallback page here.
-        console.error('Fetch failed; user is likely offline.', error);
-      })
-  );
+  return self.clients.claim();
 });
