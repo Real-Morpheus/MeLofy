@@ -10,8 +10,7 @@
     <meta name="apple-mobile-web-app-capable" content="yes">
     <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
     <meta name="apple-mobile-web-app-title" content="Melofy">
-
-    <script src="https://cdn.tailwindcss.com"></script>
+     <script src="https://cdn.tailwindcss.com"></script>
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
     <style>
         :root {
@@ -29,7 +28,6 @@
             --button-bg: rgba(255, 255, 255, 0.07);
             --button-hover-bg: rgba(255, 255, 255, 0.12);
         }
-
         /* --- Base & Scrollbar --- */
         body {
             font-family: 'Poppins', sans-serif;
@@ -39,14 +37,12 @@
             background-attachment: fixed;
             overflow-x: hidden;
         }
-
         ::-webkit-scrollbar { width: 8px; }
         ::-webkit-scrollbar-track { background: #0a0a0a; }
         ::-webkit-scrollbar-thumb {
             background: var(--accent-color);
             border-radius: 4px;
         }
-
         /* --- Glass Panel & Animations --- */
         .glass-panel {
             background: var(--glass-bg);
@@ -56,13 +52,11 @@
             box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.37);
             transition: all 0.4s cubic-bezier(0.25, 0.8, 0.25, 1);
         }
-
         @keyframes fadeIn {
             from { opacity: 0; transform: translateY(20px); }
             to { opacity: 1; transform: translateY(0); }
         }
         .fade-in { animation: fadeIn 0.5s ease-out forwards; }
-
         /* --- Header --- */
         header {
             background: var(--header-bg);
@@ -71,7 +65,6 @@
             padding-top: env(safe-area-inset-top);
             box-shadow: 0 2px 20px rgba(0, 0, 0, 0.2);
         }
-
         #saavn-search-box {
             background: var(--search-bg); border: 1px solid var(--border-color); color: var(--text-primary);
         }
@@ -81,28 +74,24 @@
             border-color: var(--accent-color);
             background: var(--search-focus-bg);
         }
-
         .search-query-container {
             display: flex; overflow-x: auto; white-space: nowrap; -webkit-overflow-scrolling: touch;
             scrollbar-width: none; -ms-overflow-style: none;
         }
         .search-query-container::-webkit-scrollbar { display: none; }
         .search-query-button {
-            background-color: var(--button-bg); 
-            border: 1px solid var(--border-color); 
-            color: var(--text-secondary);
+            background-color: var(--button-bg);
+             border: 1px solid var(--border-color);
+             color: var(--text-secondary);
             transition: all 0.3s ease; padding: 6px 14px; margin-right: 10px; border-radius: 9999px; font-size: 14px; cursor: pointer;
         }
-
-        .search-query-button:hover, .search-query-button.active {
+         .search-query-button:hover, .search-query-button.active {
             background-color: rgba(245, 158, 11, 0.1);
             color: var(--text-primary); border-color: var(--accent-color);
             transform: translateY(-2px);
             box-shadow: 0 4px 15px rgba(245, 158, 11, 0.1);
         }
-
         main { padding-top: 150px; padding-bottom: 16rem; }
-
         /* --- Song Cards --- */
         .video-container {
             background-color: var(--card-bg);
@@ -136,39 +125,34 @@
             box-shadow: 0 0 20px var(--accent-glow);
         }
         .video-container:hover .play-icon { transform: translate(-50%, -50%) scale(1); opacity: 1; }
-
         /* --- Footer (Mini Player) --- */
         footer {
             width: calc(100% - 2rem); max-width: 800px; bottom: 1rem; left: 50%;
             transform: translateX(-50%); border-radius: 1.5rem; border-top: none;
             padding-bottom: env(safe-area-inset-bottom);
         }
-
         #player-image {
             border-radius: 50%; width: 64px; height: 64px; object-fit: cover;
             box-shadow: 0 0 20px rgba(0, 0, 0, 0.7); border: 2px solid var(--border-color);
             transition: transform 0.3s ease, border-color 0.3s ease;
         }
-         #open-player-trigger:hover #player-image { transform: scale(1.1); }
-        #player-image.playing { 
-            animation: spin 12s linear infinite;
+        #open-player-trigger:hover #player-image { transform: scale(1.1); }
+        #player-image.playing {
+             animation: spin 12s linear infinite;
             border-color: var(--accent-color);
         }
         @keyframes spin { from { transform: rotate(0deg); } to { transform: rotate(360deg); } }
-
         .progress-container {
             border-radius: 4px;
             cursor: pointer; overflow: hidden; width: 100%;
             background-color: var(--button-bg);
             height: 8px;
         }
-
         .progress-bar {
             background: var(--accent-color);
             box-shadow: 0 0 8px var(--accent-glow), 0 0 12px var(--accent-glow);
             border-radius: 4px;
         }
-
         .player-controls button {
             color: var(--text-secondary); background: transparent; border-radius: 50%;
             width: 44px; height: 44px; display: flex; align-items: center; justify-content: center;
@@ -177,9 +161,12 @@
         .player-controls button:hover {
             color: var(--text-primary); background: var(--button-hover-bg); transform: scale(1.1);
         }
+        .player-controls button.sub-active {
+            color: var(--accent-color);
+        }
         .player-controls button.active {
-            color: #ffffff;
             background: var(--accent-color);
+            color: #ffffff;
             box-shadow: 0 0 15px var(--accent-glow);
         }
         .play-pause-btn {
@@ -189,7 +176,6 @@
             box-shadow: 0 0 20px var(--accent-glow);
         }
         .play-pause-btn:hover { transform: scale(1.1); box-shadow: 0 0 30px var(--accent-glow); }
-
         .lofi-toggle {
             width: 50px; height: 26px; background-color: var(--button-bg); border-radius: 13px;
             display: flex; align-items: center; padding: 3px; cursor: pointer; transition: background-color 0.3s ease;
@@ -200,9 +186,7 @@
             border-radius: 50%; transition: transform 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
             background-color: var(--text-primary);
         }
-
-        .lofi-toggle.active .lofi-toggle-knob { transform: translateX(24px); }
-
+         .lofi-toggle.active .lofi-toggle-knob { transform: translateX(24px); }
         /* --- Full Screen Player View (FIXED) --- */
         .player-view-bg-element {
             position: fixed; inset: 0;
@@ -216,7 +200,6 @@
             will-change: opacity;
             pointer-events: none;
         }
-
         #player-view {
             position: fixed; inset: 0;
             background-color: transparent;
@@ -228,8 +211,6 @@
             pointer-events: none;
             will-change: transform, opacity;
         }
-
-        /* FIX: Added pseudo-element to mask status bar area */
         #player-view::before {
             content: '';
             position: absolute;
@@ -240,7 +221,6 @@
             background-color: var(--body-bg);
             z-index: 5;
         }
-
         #player-view.visible, .player-view-bg-element.visible {
              opacity: 1;
              pointer-events: auto;
@@ -248,58 +228,46 @@
         #player-view.visible {
             transform: translateY(0);
         }
-
         #player-view-image {
             box-shadow: 0 10px 60px rgba(0, 0, 0, 0.5);
             transition: transform 0.4s cubic-bezier(0.4, 0, 0.2, 1), opacity 0.4s cubic-bezier(0.4, 0, 0.2, 1), filter 0.5s ease;
         }
-
         #player-view.lyrics-active #player-view-image {
             opacity: 0.2;
             filter: blur(8px);
         }
-
         #player-view-name, #player-view-artist {
             transition: opacity 0.4s cubic-bezier(0.4, 0, 0.2, 1), transform 0.4s cubic-bezier(0.4, 0, 0.2, 1);
         }
-
         #player-view.song-changing #player-view-image {
             opacity: 0;
             transform: scale(0.95);
         }
-
         #player-view.song-changing #player-view-name,
         #player-view.song-changing #player-view-artist {
             opacity: 0;
             transform: translateY(20px);
         }
-
         body.fullscreen-transition main,
         body.fullscreen-transition footer {
             visibility: hidden;
         }
-
-
-        /* Player View Text & Icons */
         .player-text { color: var(--text-primary); text-shadow: 0 1px 4px rgba(0, 0, 0, 0.7); }
         .player-text-secondary { color: var(--text-secondary); }
         .player-icon { color: var(--text-primary); filter: drop-shadow(0 1px 3px rgba(0, 0, 0, 0.6)); }
         .player-icon-secondary { color: var(--text-secondary); }
-
         #lyrics-view {
             scrollbar-width: none;
-            -ms-overflow-style: none; 
-            scroll-behavior: smooth;
+            -ms-overflow-style: none;
+             scroll-behavior: smooth;
         }
-        #lyrics-view::-webkit-scrollbar { 
-            display: none;
+        #lyrics-view::-webkit-scrollbar {
+             display: none;
         }
-
         @keyframes slowGlow {
             0% { text-shadow: 0 0 8px var(--accent-glow), 0 0 16px var(--accent-glow); }
             100% { text-shadow: 0 0 12px var(--accent-glow), 0 0 24px var(--accent-glow); }
         }
-
         .lyrics-line {
             transition: all 0.4s ease; color: var(--text-secondary);
             opacity: 0.5; font-weight: 600;
@@ -308,7 +276,6 @@
             color: var(--accent-color); transform: scale(1.05); opacity: 1;
             animation: slowGlow 2s ease-in-out infinite alternate;
         }
-
         #lyrics-toggle-btn {
             background-color: transparent;
         }
@@ -320,9 +287,7 @@
             background: var(--accent-color);
             box-shadow: 0 0 15px var(--accent-glow);
         }
-
         #song-info-modal { z-index: 110; transition: opacity 0.3s ease, transform 0.3s ease; }
-
         @media (max-width: 640px) {
             main { padding-top: 160px; }
             footer { width: calc(100% - 1rem); border-radius: 1rem; }
@@ -331,7 +296,6 @@
     </style>
 </head>
 <body class="min-h-screen">
-
     <header class="fixed top-0 left-0 right-0 z-50">
         <div class="max-w-7xl mx-auto px-4 py-3">
             <div class="flex items-center justify-between gap-4">
@@ -364,11 +328,10 @@
         <button id="loadmore" class="mt-8 bg-amber-600 hover:bg-amber-700 text-white font-semibold py-2.5 px-6 rounded-full transition duration-300 mx-auto block shadow-lg hover:shadow-amber-500/50">Load More</button>
     </main>
 
-    <div id="message-box" class="fixed top-24 left-1/2 -translate-x-1/2 px-6 py-3 rounded-lg shadow-xl hidden glass-panel" style="z-index: 9999;">
+    <div id="message-box" class="fixed top-24 left-1/2 -translate-x-1.2 px-6 py-3 rounded-lg shadow-xl hidden glass-panel" style="z-index: 9999;">
         <span id="message-text"></span>
     </div>
 
-    <!-- The footer acts as the mini-player, now hidden by default -->
     <footer class="fixed glass-panel z-50 p-3 sm:p-4 hidden">
         <div class="flex items-center justify-between gap-x-4 gap-y-2 flex-wrap sm:flex-nowrap">
             <div id="open-player-trigger" class="flex items-center gap-3 flex-grow min-w-0 cursor-pointer">
@@ -378,9 +341,9 @@
                     <p id="player-artist" class="text-xs truncate text-secondary">Artist Name</p>
                 </div>
             </div>
-
             <div class="flex flex-col items-center w-full sm:w-auto order-last sm:order-none sm:flex-1">
-                <div class="flex items-center gap-4 player-controls">
+                <div class="flex items-center gap-2 sm:gap-4 player-controls">
+                    <button id="loop-song-footer" title="Loop Off" class="!w-10 !h-10"></button>
                     <button id="previous-song" title="Previous"><svg class="w-5 h-5" fill="currentColor" viewBox="0 0 20 20"><path d="M8.447 13.947a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414l4-4a1 1 0 111.414 1.414L5.414 9H14a1 1 0 110 2H5.414l3.033 3.033a1 1 0 010 1.414z"/></svg></button>
                     <button id="play-pause-footer" class="play-pause-btn !w-12 !h-12" title="Play/Pause"><svg class="w-6 h-6" fill="currentColor" viewBox="0 0 20 20"><path d="M6 4l10 6-10 6V4z"/></svg></button>
                     <button id="next-song" title="Next (AI)"><svg class="w-5 h-5" fill="currentColor" viewBox="0 0 20 20"><path d="M11.553 6.053a1 1 0 011.414 0l4 4a1 1 0 010 1.414l-4 4a1 1 0 01-1.414-1.414L14.586 11H6a1 1 0 110-2h8.586l-3.033-3.033a1 1 0 010-1.414z"/></svg></button>
@@ -391,7 +354,6 @@
                     <span id="duration" class="text-xs text-secondary">0:00</span>
                 </div>
             </div>
-
             <div class="flex items-center">
                 <div id="lofi-toggle-footer" class="lofi-toggle"><div class="lofi-toggle-knob"></div></div>
             </div>
@@ -415,7 +377,7 @@
             <div class="flex-1 flex items-center justify-center w-full relative overflow-hidden my-4 px-4">
                  <img id="player-view-image" src="https://placehold.co/500x500/0a0a0a/00bfff?text=MELOFY" alt="Album Art" class="w-full max-w-xs sm:max-w-sm rounded-[2.5rem] aspect-square object-cover">
                  <div id="lyrics-view" class="absolute inset-0 bg-black/50 backdrop-blur-md p-6 text-center overflow-y-auto opacity-0 transition-opacity duration-500 pointer-events-none rounded-[2.5rem]">
-                      <div id="lyrics-content" class="text-zinc-200 text-2xl font-semibold leading-relaxed whitespace-pre-wrap"></div>
+                    <div id="lyrics-content" class="text-zinc-200 text-2xl font-semibold leading-relaxed whitespace-pre-wrap"></div>
                  </div>
             </div>
 
@@ -429,18 +391,26 @@
                     <div id="progress-container-view" class="progress-container flex-1"><div id="progress-view" class="progress-bar h-full w-0"></div></div>
                     <span id="player-view-duration" class="text-xs player-text-secondary">0:00</span>
                 </div>
-                 <div class="flex items-center justify-center gap-4 player-controls mb-4">
-                      <button id="previous-song-view" title="Previous" class="player-icon"><svg class="w-8 h-8" fill="currentColor" viewBox="0 0 20 20"><path d="M8.447 13.947a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414l4-4a1 1 0 111.414 1.414L5.414 9H14a1 1 0 110 2H5.414l3.033 3.033a1 1 0 010 1.414z"/></svg></button>
-                      <button id="play-pause-view" class="play-pause-btn" title="Play/Pause"><svg class="w-8 h-8" fill="currentColor" viewBox="0 0 20 20"><path d="M6 4l10 6-10 6V4z"/></svg></button>
-                      <button id="next-song-view" title="Next (AI)" class="player-icon"><svg class="w-8 h-8" fill="currentColor" viewBox="0 0 20 20"><path d="M11.553 6.053a1 1 0 011.414 0l4 4a1 1 0 010 1.414l-4 4a1 1 0 01-1.414-1.414L14.586 11H6a1 1 0 110-2h8.586l-3.033-3.033a1 1 0 010-1.414z"/></svg></button>
-                 </div>
+                <div class="flex items-center justify-between gap-4 player-controls mb-4 px-2">
+                    <button id="download-song-view" title="Download" class="player-icon w-12 h-12 rounded-full flex items-center justify-center player-icon-secondary">
+                        <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.5">
+                            <path stroke-linecap="round" stroke-linejoin="round" d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-4l-4 4m0 0l-4-4m4 4V4" />
+                        </svg>
+                    </button>
+                    <div class="flex items-center justify-center gap-4">
+                        <button id="previous-song-view" title="Previous" class="player-icon !w-16 !h-16"><svg class="w-8 h-8" fill="currentColor" viewBox="0 0 20 20"><path d="M8.447 13.947a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414l4-4a1 1 0 111.414 1.414L5.414 9H14a1 1 0 110 2H5.414l3.033 3.033a1 1 0 010 1.414z"/></svg></button>
+                        <button id="play-pause-view" class="play-pause-btn !w-20 !h-20" title="Play/Pause"><svg class="w-10 h-10" fill="currentColor" viewBox="0 0 20 20"><path d="M6 4l10 6-10 6V4z"/></svg></button>
+                        <button id="next-song-view" title="Next (AI)" class="player-icon !w-16 !h-16"><svg class="w-8 h-8" fill="currentColor" viewBox="0 0 20 20"><path d="M11.553 6.053a1 1 0 011.414 0l4 4a1 1 0 010 1.414l-4 4a1 1 0 01-1.414-1.414L14.586 11H6a1 1 0 110-2h8.586l-3.033-3.033a1 1 0 010-1.414z"/></svg></button>
+                    </div>
+                    <button id="loop-song-view" title="Loop Off" class="player-icon w-12 h-12 rounded-full flex items-center justify-center player-icon-secondary"></button>
+                </div>
                  <div class="flex items-center justify-center gap-8 px-2">
-                       <button id="lyrics-toggle-btn" title="Lyrics" class="w-12 h-12 rounded-full flex items-center justify-center player-icon-secondary">
-                            <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.5">
-                                 <path stroke-linecap="round" stroke-linejoin="round" d="M9 19V6l12-3v13M9 19c0 1.105-1.343 2-3 2s-3-.895-3-2 1.343-2 3-2 3 .895 3 2zm12-3c0 1.105-1.343 2-3 2s-3-.895-3-2 1.343-2 3-2 3 .895 3 2z" />
-                            </svg>
-                       </button>
-                       <div id="lofi-toggle-view" class="lofi-toggle"><div class="lofi-toggle-knob"></div></div>
+                     <button id="lyrics-toggle-btn" title="Lyrics" class="w-12 h-12 rounded-full flex items-center justify-center player-icon-secondary">
+                         <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.5">
+                              <path stroke-linecap="round" stroke-linejoin="round" d="M9 19V6l12-3v13M9 19c0 1.105-1.343 2-3 2s-3-.895-3-2 1.343-2 3-2 3 .895 3 2zm12-3c0 1.105-1.343 2-3 2s-3-.895-3-2 1.343-2 3-2 3 .895 3 2z" />
+                         </svg>
+                     </button>
+                     <div id="lofi-toggle-view" class="lofi-toggle"><div class="lofi-toggle-knob"></div></div>
                  </div>
             </div>
         </div>
@@ -454,7 +424,7 @@
              </button>
              <h3 class="text-2xl font-bold mb-4 text-primary">Song Information</h3>
              <div id="song-info-content" class="space-y-2 text-secondary">
-                   <p>Loading details...</p>
+                 <p>Loading details...</p>
              </div>
         </div>
     </div>
@@ -465,24 +435,21 @@
 
     <script>
         // --- Gemini API Configuration ---
-        const API_KEY = "AIzaSyB2NVQncR6A_Uu7e_hCWg1D8ycimDNmL78"; // Provided by environment
+        const API_KEY = ""; // IMPORTANT: Add your Gemini API Key here
         const API_URL = `https://generativelanguage.googleapis.com/v1beta/models/gemini-2.5-flash-preview-05-20:generateContent?key=${API_KEY}`;
-
+        
         // --- Utility Functions ---
         function showMessage(message, duration = 3000) {
             const msgBox = document.getElementById('message-box');
             if (!msgBox) return;
             const msgText = document.getElementById('message-text');
-
-            msgBox.classList.remove('bg-gradient-to-r', 'from-amber-500', 'to-orange-600', 'from-red-500', 'to-pink-600');
-
-            if (message.startsWith("AI")) {
-                 msgBox.classList.add('bg-gradient-to-r', 'from-amber-500', 'to-orange-600');
-            } else {
-                 msgBox.classList.add('bg-gradient-to-r', 'from-red-500', 'to-pink-600');
-            }
-
-            msgText.textContent = message;
+             msgBox.classList.remove('bg-gradient-to-r', 'from-amber-500', 'to-orange-600', 'from-red-500', 'to-pink-600');
+             if (message.startsWith("AI") || message.toLowerCase().startsWith("download") || message.toLowerCase().includes("loop")) {
+                msgBox.classList.add('bg-gradient-to-r', 'from-amber-500', 'to-orange-600');
+             } else {
+                msgBox.classList.add('bg-gradient-to-r', 'from-red-500', 'to-pink-600');
+             }
+             msgText.textContent = message;
             msgBox.classList.remove('hidden');
             setTimeout(() => { msgBox.classList.add('hidden'); }, duration);
         }
@@ -508,6 +475,7 @@
         let currentLyrics = [];
         let currentLyricIndex = -1;
         let activeBg = 1;
+        let loopState = 0; // 0: off, 1: loop all, 2: loop one
 
         // --- DOM Elements ---
         const audio = document.getElementById('player');
@@ -542,9 +510,17 @@
         const songInfoContent = document.getElementById('song-info-content');
         const lofiToggleFooter = document.getElementById('lofi-toggle-footer');
         const lofiToggleView = document.getElementById('lofi-toggle-view');
+        const loopButtonFooter = document.getElementById('loop-song-footer');
+        const loopButtonView = document.getElementById('loop-song-view');
+        const downloadButtonView = document.getElementById('download-song-view');
+
 
         // --- API Call Function ---
         async function callGeminiAPI(payload, retries = 3, delay = 1000) {
+            if (!API_KEY) {
+                console.error("Gemini API Key is missing. AI features are disabled.");
+                return null;
+            }
             for (let i = 0; i < retries; i++) {
                 try {
                     const response = await fetch(API_URL, {
@@ -624,7 +600,6 @@
             }
 
             const fullQuery = `${baseApiUrl}/search/songs?query=${query}&limit=40&page=${page_index}`;
-
             try {
                 const response = await fetch(fullQuery);
                 const json = await response.json();
@@ -632,7 +607,7 @@
                 const results = json.data.results;
 
                 if (!isPage && !autoplayFirstResult) results_container.innerHTML = "";
-
+                
                 if (!results || results.length === 0) {
                     if(!isPage) results_container.innerHTML = "<p class='col-span-full text-center'>No results found.</p>";
                     if(autoplayFirstResult) playNextSong(false);
@@ -656,7 +631,6 @@
 
                 currentSearchResults = currentSearchResults.concat(results);
                 displayResults(results);
-
             } catch (error) {
                 results_container.innerHTML = `<div class="error col-span-full text-center">Error: ${error.message}</div>`;
                 if(autoplayFirstResult) playNextSong(false);
@@ -674,8 +648,7 @@
                 const play_time = formatTime(track.duration);
                 const song_image = track.image[2].link.replace('150x150', '500x500');
                 const song_artist = decodeHtmlEntities(track.primaryArtists);
-
-                return `
+                 return `
                 <div class="video-container cursor-pointer flex flex-col group" data-song-id="${track.id}" style="animation-delay: ${index * 50}ms;">
                     <div class="relative pt-[100%] image-wrapper">
                         <img loading="lazy" src="${song_image}" alt="${song_name} cover" class="absolute top-0 left-0 w-full h-full object-cover">
@@ -693,7 +666,6 @@
 
             const tempContainer = document.createElement('div');
             tempContainer.innerHTML = resultsHTML;
-
             Array.from(tempContainer.children).forEach((child, index) => {
                 child.style.animation = `fadeIn 0.5s ease-out ${index * 50}ms forwards`;
                 results_container.appendChild(child);
@@ -728,7 +700,7 @@
         function PlayAudio(audio_url, song_id) {
             const track = currentSearchResults.find(t => t.id === song_id);
             if (!track) return;
-
+            
             const name = decodeHtmlEntities(track.name);
             const artist = decodeHtmlEntities(track.primaryArtists);
             const image = track.image[2].link.replace('150x150', '500x500');
@@ -739,9 +711,11 @@
                 if (playerFooter.classList.contains('hidden')) {
                     playerFooter.classList.remove('hidden');
                 }
+                
                 nextAiSong = null;
                 isFetchingNextSong = false;
                 currentPlayingIndex = currentSearchResults.findIndex(t => t.id === song_id);
+
                 if (!audioContext) {
                     try {
                         audioContext = new (window.AudioContext || window.webkitAudioContext)();
@@ -749,72 +723,68 @@
                         sourceNode.connect(audioContext.destination);
                     } catch (e) { console.error("Failed to create AudioContext", e); }
                 }
+
                 addToHistory(`${name} by ${artist}`);
+
                 if ('mediaSession' in navigator) {
                     navigator.mediaSession.metadata = new MediaMetadata({
                         title: name, artist: artist, album: decodeHtmlEntities(track.album.name),
                         artwork: [{ src: image, sizes: '512x512', type: 'image/jpeg' }]
                     });
                 }
+                
                 document.title = `${name} - ${artist}`;
                 document.getElementById("player-name").textContent = name;
                 document.getElementById("player-artist").textContent = artist;
                 document.getElementById("player-image").src = image;
+                
                 playerViewName.textContent = name;
                 playerViewArtist.textContent = artist;
                 playerViewImage.src = image;
+                
                 document.getElementById('audioSource').src = audio_url;
                 audio.load();
                 audio.play().catch(error => { showMessage('Playback failed. Interact with page.'); });
-
-                // FIX: Re-apply Lofi effect if it was enabled for the previous song.
-                if (slowedReverbEnabled) {
-                    applySlowedReverbEffect();
-                } else {
-                    removeSlowedReverbEffect();
-                }
-
-                fetchAndProcessLyrics(name, artist);
+                
+                if (slowedReverbEnabled) { applySlowedReverbEffect(); } 
+                else { removeSlowedReverbEffect(); }
+                
+                fetchAndProcessLyrics(track);
                 fetchAndDisplaySongInfo(song_id);
                 prefetchNextAiSong();
             };
-
+            
             const isTransitionNeeded = isPlayerViewVisible && audio.currentSrc && currentPlayingIndex !== -1;
 
             if (isTransitionNeeded) {
                 document.body.classList.add('fullscreen-transition');
                 playerView.classList.add('song-changing');
-
+                
                 preloadImage(small_image_for_blur).then(() => {
                     const currentBgEl = activeBg === 1 ? playerViewBg1 : playerViewBg2;
                     const nextBgEl = activeBg === 1 ? playerViewBg2 : playerViewBg1;
-
+                    
                     nextBgEl.style.backgroundImage = `url(${small_image_for_blur})`;
-
                     nextBgEl.classList.add('visible');
                     currentBgEl.classList.remove('visible');
                     activeBg = activeBg === 1 ? 2 : 1;
-
+                    
                     performUpdateAndPlay();
-
+                    
                     setTimeout(() => {
                         requestAnimationFrame(() => {
                             playerView.classList.remove('song-changing');
                             document.body.classList.remove('fullscreen-transition');
                         });
-                    }, 50);
+                    }, 50); 
                 });
-
             } else {
                 performUpdateAndPlay();
-                // FIX: This block handles the first song play. It now correctly pre-loads the background.
                 playerViewBg1.style.backgroundImage = `url(${small_image_for_blur})`;
-                activeBg = 1; // Always start with bg 1
+                activeBg = 1; 
                 playerViewBg2.classList.remove('visible');
-                // The `openPlayerView` function will handle making playerViewBg1 visible.
             }
         }
-
 
         function playPreviousSong() {
             if (currentSearchResults.length === 0) return;
@@ -827,22 +797,28 @@
         const togglePlayback = () => audio.paused ? audio.play() : audio.pause();
         playPauseButtonFooter.addEventListener('click', togglePlayback);
         playPauseButtonView.addEventListener('click', togglePlayback);
-
         nextSongButton.addEventListener('click', () => playNextSong(true));
         nextSongButtonView.addEventListener('click', () => playNextSong(true));
-
         previousSongButton.addEventListener('click', playPreviousSong);
         previousSongButtonView.addEventListener('click', playPreviousSong);
-
+        
         audio.addEventListener('timeupdate', updateProgress);
-        audio.addEventListener('loadedmetadata', () => { 
+        audio.addEventListener('loadedmetadata', () => {
             const formattedDuration = formatTime(audio.duration);
             durationElement.textContent = formattedDuration;
             playerViewDuration.textContent = formattedDuration;
         });
         audio.addEventListener('play', () => updatePlayPauseButton(true));
         audio.addEventListener('pause', () => updatePlayPauseButton(false));
-        audio.addEventListener('ended', () => playNextSong(false));
+        audio.addEventListener('ended', () => {
+            if (loopState === 2) { // Loop one
+                audio.currentTime = 0;
+                audio.play();
+            } else {
+                playNextSong(false); // Handles loop all and no loop
+            }
+        });
+
 
         const seek = (e) => {
             const progressBar = e.currentTarget;
@@ -856,15 +832,14 @@
         // --- UI Update Functions ---
         function updatePlayPauseButton(isPlaying) {
             playerImage.classList.toggle('playing', isPlaying);
-            const icon = isPlaying
-                ? `<svg class="w-8 h-8" fill="currentColor" viewBox="0 0 20 20"><path d="M5 4h3v12H5V4zm7 0h3v12h-3V4z"/></svg>`
-                : `<svg class="w-8 h-8" fill="currentColor" viewBox="0 0 20 20"><path d="M6 4l10 6-10 6V4z"/></svg>`;
-            const footerIcon = isPlaying 
-                ? `<svg class="w-6 h-6" fill="currentColor" viewBox="0 0 20 20"><path d="M5 4h3v12H5V4zm7 0h3v12h-3V4z"/></svg>`
+            const icon = isPlaying 
+                ? `<svg class="w-10 h-10" fill="currentColor" viewBox="0 0 20 20"><path d="M5 4h3v12H5V4zm7 0h3v12h-3V4z"/></svg>`
+                : `<svg class="w-10 h-10" fill="currentColor" viewBox="0 0 20 20"><path d="M6 4l10 6-10 6V4z"/></svg>`;
+            const footerIcon = isPlaying
+                 ? `<svg class="w-6 h-6" fill="currentColor" viewBox="0 0 20 20"><path d="M5 4h3v12H5V4zm7 0h3v12h-3V4z"/></svg>`
                 : `<svg class="w-6 h-6" fill="currentColor" viewBox="0 0 20 20"><path d="M6 4l10 6-10 6V4z"/></svg>`;
             playPauseButtonFooter.innerHTML = footerIcon;
             playPauseButtonView.innerHTML = icon;
-
             if ('mediaSession' in navigator) navigator.mediaSession.playbackState = isPlaying ? "playing" : "paused";
         }
 
@@ -877,7 +852,7 @@
             const formattedCurrentTime = formatTime(audio.currentTime);
             currentTimeElement.textContent = formattedCurrentTime;
             playerViewCurrentTime.textContent = formattedCurrentTime;
-
+            
             updateSyncedLyrics(audio.currentTime);
         }
 
@@ -886,11 +861,8 @@
             if (isPlayerViewVisible) return;
             isPlayerViewVisible = true;
             playerView.classList.add('visible');
-            if (activeBg === 1) {
-                playerViewBg1.classList.add('visible');
-            } else {
-                playerViewBg2.classList.add('visible');
-            }
+            if (activeBg === 1) playerViewBg1.classList.add('visible');
+            else playerViewBg2.classList.add('visible');
             document.body.style.overflow = 'hidden';
         }
 
@@ -909,19 +881,15 @@
 
         lyricsToggleButton.addEventListener('click', () => {
             const isLyricsNowVisible = !playerView.classList.contains('lyrics-active');
-            playerView.classList.toggle('lyrics-active');
-
+            playerView.classList.toggle('lyrics-active', isLyricsNowVisible);
             lyricsView.style.opacity = isLyricsNowVisible ? '1' : '0';
             lyricsView.style.pointerEvents = isLyricsNowVisible ? 'auto' : 'none';
             lyricsToggleButton.classList.toggle('active', isLyricsNowVisible);
         });
 
         function toggleInfoModal(show) {
-            if(show) {
-                songInfoModal.classList.remove('opacity-0', 'scale-95', 'pointer-events-none');
-            } else {
-                songInfoModal.classList.add('opacity-0', 'scale-95', 'pointer-events-none');
-            }
+            if(show) songInfoModal.classList.remove('opacity-0', 'scale-95', 'pointer-events-none');
+            else songInfoModal.classList.add('opacity-0', 'scale-95', 'pointer-events-none');
         }
         infoToggleButton.addEventListener('click', () => toggleInfoModal(true));
         closeInfoModalButton.addEventListener('click', () => toggleInfoModal(false));
@@ -937,7 +905,7 @@
                 if (match) {
                     const minutes = parseInt(match[1], 10);
                     const seconds = parseInt(match[2], 10);
-                    const milliseconds = parseInt(match[3], 10);
+                    const milliseconds = parseInt(match[3].padEnd(3, '0'), 10);
                     const time = minutes * 60 + seconds + milliseconds / 1000;
                     const text = line.replace(timeRegex, '').trim();
                     if (text) lyrics.push({ time, text });
@@ -947,8 +915,8 @@
         }
 
         function displayLyrics(lyricsArray, isSynced) {
-            lyricsContent.innerHTML = ''; // Clear previous lyrics
-            if (lyricsArray.length === 0) {
+            lyricsContent.innerHTML = '';
+            if (!lyricsArray || lyricsArray.length === 0) {
                 lyricsContent.innerHTML = `<p class="lyrics-line active">Lyrics not found.</p>`;
                 return;
             }
@@ -961,87 +929,113 @@
                      lyricsContent.appendChild(lineEl);
                  });
             } else {
-                 lyricsContent.innerHTML = lyricsArray.map(line => `<p class="lyrics-line">${line.text}</p>`).join('');
+                 lyricsContent.innerHTML = lyricsArray.map(line => `<p class="lyrics-line">${line.text || line}</p>`).join('');
                  if(lyricsContent.firstChild) lyricsContent.firstChild.classList.add('active');
             }
+            lyricsView.scrollTop = 0;
         }
 
         function updateSyncedLyrics(currentTime) {
-             if (!currentLyrics.length || !currentLyrics[0].hasOwnProperty('time') || currentLyrics[0].time === 0) return;
+            if (!currentLyrics.length || !currentLyrics[0].hasOwnProperty('time')) return;
+            
+            let newLyricIndex = -1;
+            for (let i = 0; i < currentLyrics.length; i++) {
+                if (currentTime >= currentLyrics[i].time) newLyricIndex = i;
+                else break;
+            }
 
-             let newLyricIndex = -1;
-             for (let i = 0; i < currentLyrics.length; i++) {
-                 if (currentTime >= currentLyrics[i].time) {
-                     newLyricIndex = i;
-                 } else {
-                     break;
-                 }
-             }
-
-             if (newLyricIndex !== currentLyricIndex) {
-                 if (currentLyricIndex !== -1) {
-                     const oldLine = lyricsContent.querySelector(`[data-index="${currentLyricIndex}"]`);
-                     if(oldLine) oldLine.classList.remove('active');
-                 }
-                 const newLine = lyricsContent.querySelector(`[data-index="${newLyricIndex}"]`);
-                 if(newLine) {
-                     newLine.classList.add('active');
-                     newLine.scrollIntoView({ behavior: 'smooth', block: 'center' });
-                 }
-                 currentLyricIndex = newLyricIndex;
-             }
+            if (newLyricIndex !== currentLyricIndex) {
+                if (currentLyricIndex !== -1) {
+                    const oldLine = lyricsContent.querySelector(`[data-index="${currentLyricIndex}"]`);
+                    if(oldLine) oldLine.classList.remove('active');
+                }
+                const newLine = lyricsContent.querySelector(`[data-index="${newLyricIndex}"]`);
+                if(newLine) {
+                    newLine.classList.add('active');
+                    newLine.scrollIntoView({ behavior: 'smooth', block: 'center' });
+                }
+                currentLyricIndex = newLyricIndex;
+            }
         }
 
-        async function fetchAndProcessLyrics(songName, artistName) {
+        async function fetchAndProcessLyrics(track) {
             lyricsContent.innerHTML = `<p class="lyrics-line active">Searching for lyrics...</p>`;
             currentLyrics = [];
             currentLyricIndex = -1;
+            const songName = decodeHtmlEntities(track.name);
+            const artistName = decodeHtmlEntities(track.primaryArtists);
+
             try {
                 const searchUrl = `https://lrclib.net/api/search?track_name=${encodeURIComponent(songName)}&artist_name=${encodeURIComponent(artistName)}`;
                 const response = await fetch(searchUrl);
                 if (!response.ok) throw new Error('LRC API search failed');
                 const results = await response.json();
-
+                
                 const bestMatch = results.find(r => r.trackName.toLowerCase() === songName.toLowerCase() && r.artistName.toLowerCase() === artistName.toLowerCase()) || results[0];
-
+                
                 if (bestMatch && bestMatch.syncedLyrics) {
                     currentLyrics = parseLRC(bestMatch.syncedLyrics);
                     displayLyrics(currentLyrics, true);
                     return;
                 } else if (bestMatch && bestMatch.plainLyrics) {
-                    currentLyrics = bestMatch.plainLyrics.split('\n').map(line => ({ time: 0, text: line }));
+                    currentLyrics = bestMatch.plainLyrics.split('\n').map(line => ({ text: line }));
                     displayLyrics(currentLyrics, false);
                     return;
                 }
-                throw new Error("No lyrics found on lrclib.net");
-
+                throw new Error("No lyrics found on lrclib.net, trying AI.");
             } catch (error) {
-                 console.log("Could not fetch from lrclib.net, falling back to AI.", error);
-                 await fetchLyricsWithGemini(songName, artistName);
+                console.log(error.message);
+                await fetchLyricsWithGemini(track);
             }
         }
 
-        async function fetchLyricsWithGemini(songName, artistName) {
+        async function fetchLyricsWithGemini(track) {
             lyricsContent.innerHTML = `<p class="lyrics-line active">Searching with AI...</p>`;
-            const prompt = `Please provide the lyrics for the song "${songName}" by "${artistName}" in Hinglish (Hindi written in the English alphabet). For example, "Main Tera" instead of "मैं तेरा". Respond with only the Hinglish lyrics text, without any additional titles, headers, or explanations like "Here are the lyrics:".`;
+            
+            const songName = decodeHtmlEntities(track.name);
+            const artistName = decodeHtmlEntities(track.primaryArtists);
+            const albumName = decodeHtmlEntities(track.album.name);
+            const year = track.year;
+
+            const prompt = `You are an expert lyrics transcriber. Your task is to find and format lyrics for a specific song.
+
+**Song Details:**
+- Track Name: "${songName}"
+- Artist(s): "${artistName}"
+- Album: "${albumName}"
+- Year: "${year}"
+
+**Instructions:**
+1. Find the most accurate lyrics for the song matching the details above.
+2. If available, provide the lyrics in **LRC format** (e.g., [mm:ss.xx] Lyrics line). This is the highest priority.
+3. If LRC format is not available, provide the plain text lyrics.
+4. The lyrics should be in the original language of the song. For songs in languages like Hindi, provide them in Hinglish (Hindi written in the English alphabet).
+5. **Respond with ONLY the lyrics content (either LRC or plain text). Do not include any headers, titles, or extra explanations like "Here are the lyrics:".**`;
+            
             const payload = { contents: [{ parts: [{ text: prompt }] }] };
+
             try {
                 const result = await callGeminiAPI(payload);
                 const text = result.candidates?.[0]?.content?.parts?.[0]?.text;
+                
                 if (text) {
-                    currentLyrics = text.trim().split('\n').map(line => ({ time: 0, text: line }));
-                    displayLyrics(currentLyrics, false);
+                    if (text.includes('[')) { // Simple check for LRC format
+                        currentLyrics = parseLRC(text);
+                        displayLyrics(currentLyrics, true);
+                    } else {
+                        currentLyrics = text.trim().split('\n').map(line => ({ text: line }));
+                        displayLyrics(currentLyrics, false);
+                    }
                 } else {
-                    currentLyrics = [];
-                    displayLyrics([], false);
+                    throw new Error("AI returned no lyrics text.");
                 }
             } catch (error) {
                 console.error("Gemini lyrics fetch error:", error);
-                currentLyrics = [];
                 lyricsContent.innerHTML = `<p class="lyrics-line active">Error fetching lyrics with AI.</p>`;
+                currentLyrics = [];
             }
         }
-
+        
         async function fetchAndDisplaySongInfo(songId) {
             songInfoContent.innerHTML = `<p>Loading details...</p>`;
             try {
@@ -1059,7 +1053,7 @@
                          ${details.copyright ? `<p class="text-xs mt-4 pt-2 border-t border-zinc-700">${decodeHtmlEntities(details.copyright)}</p>` : ''}
                      `;
                 } else {
-                      songInfoContent.innerHTML = `<p>Sorry, song details are not available.</p>`;
+                    songInfoContent.innerHTML = `<p>Sorry, song details are not available.</p>`;
                 }
             } catch (error) {
                  songInfoContent.innerHTML = `<p>Could not fetch song details.</p>`;
@@ -1076,13 +1070,9 @@
         function toggleSlowedReverb() {
             slowedReverbEnabled = !slowedReverbEnabled;
             updateLofiToggleUI();
-            if (slowedReverbEnabled) {
-                applySlowedReverbEffect();
-            } else {
-                removeSlowedReverbEffect();
-            }
+            if (slowedReverbEnabled) applySlowedReverbEffect();
+            else removeSlowedReverbEffect();
         }
-
         lofiToggleFooter.addEventListener('click', toggleSlowedReverb);
         lofiToggleView.addEventListener('click', toggleSlowedReverb);
 
@@ -1095,43 +1085,33 @@
 
             if (!reverbNode) {
                 reverbNode = audioContext.createConvolver();
-                const impulseLength = 1 * audioContext.sampleRate; // Using 1s reverb tail like S-CLOUD
+                const impulseLength = 1 * audioContext.sampleRate;
                 const impulse = audioContext.createBuffer(2, impulseLength, audioContext.sampleRate);
                 const left = impulse.getChannelData(0);
                 const right = impulse.getChannelData(1);
                 for (let i = 0; i < impulseLength; i++) {
-                    // Using an exponential decay for a more natural reverb tail
                     left[i] = (Math.random() * 2 - 1) * Math.pow(1 - i / impulseLength, 2);
                     right[i] = (Math.random() * 2 - 1) * Math.pow(1 - i / impulseLength, 2);
                 }
                 reverbNode.buffer = impulse;
             }
-
             const gainNode = audioContext.createGain();
-            gainNode.gain.setValueAtTime(0.6, audioContext.currentTime); // Matching S-CLOUD dry signal level
-
+            gainNode.gain.setValueAtTime(0.6, audioContext.currentTime); 
             audio.preservesPitch = false;
             audio.playbackRate = 0.9;
-
             sourceNode.disconnect();
-            // Connect the 'dry' (original) signal path
             sourceNode.connect(gainNode);
             gainNode.connect(audioContext.destination);
-            // Connect the 'wet' (reverb) signal path in parallel
             sourceNode.connect(reverbNode);
             reverbNode.connect(audioContext.destination);
         }
 
         function removeSlowedReverbEffect() {
             if (!audioContext || !sourceNode) return;
-
             audio.playbackRate = 1;
             audio.preservesPitch = true;
-
             sourceNode.disconnect();
-            if (reverbNode) {
-                reverbNode.disconnect();
-            }
+            if (reverbNode) reverbNode.disconnect();
             sourceNode.connect(audioContext.destination);
         }
 
@@ -1143,24 +1123,39 @@
         }
 
         async function playNextSong(isManualSkip = false) {
-            const playFallback = () => {
+             const playFallback = () => {
                 if (currentSearchResults.length > 0) {
-                    currentPlayingIndex = (currentPlayingIndex + 1) % currentSearchResults.length;
-                    const nextTrack = currentSearchResults[currentPlayingIndex];
-                    if (nextTrack) PlayAudio(nextTrack.downloadUrl[4]['link'], nextTrack.id);
+                    const nextIndex = currentPlayingIndex + 1;
+                    
+                    if (nextIndex >= currentSearchResults.length) {
+                        if (loopState === 1) { // Loop all is on
+                            currentPlayingIndex = 0;
+                            const nextTrack = currentSearchResults[currentPlayingIndex];
+                            if (nextTrack) PlayAudio(nextTrack.downloadUrl[4]['link'], nextTrack.id);
+                        } else { // Loop is off, end of queue
+                            audio.pause();
+                            audio.currentTime = 0;
+                            updatePlayPauseButton(false);
+                            showMessage("End of queue");
+                        }
+                    } else { // Not at the end, just play next
+                        currentPlayingIndex = nextIndex;
+                        const nextTrack = currentSearchResults[currentPlayingIndex];
+                        if (nextTrack) PlayAudio(nextTrack.downloadUrl[4]['link'], nextTrack.id);
+                    }
                 }
             };
-
-            if (nextAiSong) {
+            
+            if (nextAiSong && !isManualSkip) {
                 showMessage(`AI Playing: ${nextAiSong.songToSearch}`, 4000);
                 await doSaavnSearch(encodeURIComponent(nextAiSong.songToSearch), true, false, true);
-                nextAiSong = null; 
-                return;
+                nextAiSong = null;
+                 return;
             }
 
-            await prefetchNextAiSong();
+            if(!isManualSkip) await prefetchNextAiSong();
 
-            if (nextAiSong) {
+            if (nextAiSong && !isManualSkip) {
                 showMessage(`AI Playing: ${nextAiSong.songToSearch}`, 4000);
                 await doSaavnSearch(encodeURIComponent(nextAiSong.songToSearch), true, false, true);
                 nextAiSong = null;
@@ -1171,36 +1166,11 @@
 
         async function prefetchNextAiSong() {
             if (listeningHistory.length === 0 || isFetchingNextSong) return;
-
+            
             isFetchingNextSong = true;
-
             const historyText = listeningHistory.slice(-5).join('; ');
-
-            const systemPrompt = `You are an advanced Spotify-style music recommendation engine. Your task is to analyze a user's recent listening history and suggest the perfect next song that keeps the vibe going while introducing discovery and variety.
-
-USER INPUT:
-- ${historyText}
-
-YOUR DIRECTIVES:
-1. Vibe Analysis:
-   - Analyze the last 1-2 songs to determine primary genre, mood (energetic, chill, sad, romantic, etc.), tempo, and language.
-   - Weight the last song more heavily to define the current listening vibe.
-2. Artist Diversity:
-   - Recommend a song from a DIFFERENT ARTIST than the last 2 songs.
-   - Exception: if the user listened to 3+ songs by the same artist consecutively, you may recommend another song by that artist (artist binge).
-3. Popularity & Discovery:
-   - Prioritize popular or trending songs in the detected genre/mood.
-   - Introduce variety in tempo, instrumentation, or energy to avoid repetition but keep the vibe consistent.
-4. No Repeats:
-   - Never recommend a song already in the user’s recent history.
-5. Randomization:
-   - If multiple songs match the criteria, pick one randomly to simulate discovery.
-6. Strict Output Format:
-   - Only output: \`Song Name - Artist Name\`
-   - Do NOT include explanations, punctuation outside the format, emojis, or extra text.
-7. Bonus Accuracy:
-   - Consider language, instrumentation, and overall energy to ensure the next song feels like a natural continuation of the listening session.`;
-
+            const systemPrompt = `You are an advanced Spotify-style music recommendation engine. Your task is to analyze a user's recent listening history and suggest the perfect next song that keeps the vibe going while introducing discovery and variety. USER INPUT: - ${historyText} YOUR DIRECTIVES: 1. Vibe Analysis: - Analyze the last 1-2 songs to determine primary genre, mood (energetic, chill, sad, romantic, etc.), tempo, and language. - Weight the last song more heavily to define the current listening vibe. 2. Artist Diversity: - Recommend a song from a DIFFERENT ARTIST than the last 2 songs. - Exception: if the user listened to 3+ songs by the same artist consecutively, you may recommend another song by that artist (artist binge). 3. Popularity & Discovery: - Prioritize popular or trending songs in the detected genre/mood. - Introduce variety in tempo, instrumentation, or energy to avoid repetition but keep the vibe consistent. 4. No Repeats: - Never recommend a song already in the user’s recent history. 5. Randomization: - If multiple songs match the criteria, pick one randomly to simulate discovery. 6. Strict Output Format: - Only output: \`Song Name - Artist Name\` - Do NOT include explanations, punctuation outside the format, emojis, or extra text. 7. Bonus Accuracy: - Consider language, instrumentation, and overall energy to ensure the next song feels like a natural continuation of the listening session.`;
+            
             const payload = {
                 contents: [{ parts: [{ text: `Based on the user input, recommend the next song.` }] }],
                 systemInstruction: { parts: [{ text: systemPrompt }] }
@@ -1208,6 +1178,7 @@ YOUR DIRECTIVES:
 
             try {
                 const result = await callGeminiAPI(payload);
+                if (!result) return;
                 const songToSearch = result.candidates?.[0]?.content?.parts?.[0]?.text;
                 if (songToSearch) {
                     nextAiSong = { songToSearch: songToSearch.trim() };
@@ -1220,22 +1191,75 @@ YOUR DIRECTIVES:
                 isFetchingNextSong = false;
             }
         }
+        
+        // --- Loop and Download Logic ---
+        const loopSvgs = {
+            // A clean, standard repeat icon for the "Off" state.
+            0: `<svg class="w-6 h-6" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M17 2.1l4 4-4 4"/><path d="M3 12.6v-3a4 4 0 0 1 4-4h14"/><path d="M7 21.9l-4-4 4-4"/><path d="M21 11.4v3a4 4 0 0 1-4 4H3"/></svg>`,
+            // The same icon for "Loop All". The active state is handled by CSS.
+            1: `<svg class="w-6 h-6" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M17 2.1l4 4-4 4"/><path d="M3 12.6v-3a4 4 0 0 1 4-4h14"/><path d="M7 21.9l-4-4 4-4"/><path d="M21 11.4v3a4 4 0 0 1-4 4H3"/></svg>`,
+            // A professional "Loop One" icon with a clean, central dot.
+            2: `<svg class="w-6 h-6" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M17 2.1l4 4-4 4"/><path d="M3 12.6v-3a4 4 0 0 1 4-4h14"/><path d="M7 21.9l-4-4 4-4"/><path d="M21 11.4v3a4 4 0 0 1-4 4H3"/><circle cx="12" cy="12" r="1.5" fill="currentColor" stroke-width="0"/></svg>`,
+        };
+        const loopTitles = ["Loop Off", "Loop All", "Loop One"];
+
+        function updateLoopButtonUI() {
+            const isSubActive = loopState > 0;
+            loopButtonFooter.innerHTML = loopSvgs[loopState].replace(/w-6 h-6/g, 'w-5 h-5');
+            loopButtonView.innerHTML = loopSvgs[loopState];
+            loopButtonFooter.title = loopTitles[loopState];
+            loopButtonView.title = loopTitles[loopState];
+            loopButtonFooter.classList.toggle('sub-active', isSubActive);
+            loopButtonView.classList.toggle('sub-active', isSubActive);
+        }
+
+        function toggleLoop() {
+            loopState = (loopState + 1) % 3;
+            updateLoopButtonUI();
+            showMessage(loopTitles[loopState]);
+        }
+
+        loopButtonFooter.addEventListener('click', toggleLoop);
+        loopButtonView.addEventListener('click', toggleLoop);
+        
+        function downloadCurrentSong() {
+            const currentTrack = currentSearchResults[currentPlayingIndex];
+            if (!currentTrack) {
+                showMessage("No song is playing.");
+                return;
+            }
+            const songUrl = audio.src;
+            const songName = decodeHtmlEntities(currentTrack.name);
+            const artistName = decodeHtmlEntities(currentTrack.primaryArtists);
+            const fileName = `${artistName} - ${songName}.m4a`;
+
+            showMessage(`Starting download for: ${fileName}`);
+
+            const link = document.createElement('a');
+            link.href = songUrl;
+            link.target = '_blank';
+            link.download = fileName; 
+            
+            document.body.appendChild(link);
+            link.click();
+            document.body.removeChild(link);
+        }
+
+        downloadButtonView.addEventListener('click', downloadCurrentSong);
+
 
         // --- Initial Load ---
         initMediaSession();
+        updateLoopButtonUI(); // Set initial loop icon
         if (window.location.hash) {
             doSaavnSearch(window.location.hash.substring(1));
         } else {
             doSaavnSearch('hindi', true);
             document.querySelector('.search-query-button').classList.add('active');
         }
-
         window.addEventListener('hashchange', () => doSaavnSearch(window.location.hash.substring(1)));
         document.getElementById('loadmore').addEventListener('click', nextPage);
 
-        // Register Service Worker for PWA capabilities
-        // NOTE: A functional sw.js file is crucial for enabling robust background playback,
-        // especially on mobile devices. It helps keep the app alive when minimized.
         if ('serviceWorker' in navigator) {
             window.addEventListener('load', () => {
                 navigator.serviceWorker.register('/sw.js').then(registration => {
