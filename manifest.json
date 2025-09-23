@@ -1,23 +1,23 @@
 {
-  "name": "Melofy",
-  "short_name": "Melofy",
-  "start_url": ".",
-  "display": "standalone",
-  "background_color": "#050508",
-  "theme_color": "#0a0a0a",
-  "description": "A modern, AI-powered music streaming experience.",
-  "icons": [
-    {
-      "src": "https://i.ibb.co/TDt1SgGH/7d41b8ed-0b55-4aef-bc8e-6d20ea913649.jpg",
-      "sizes": "192x192",
-      "type": "image/jpeg",
-      "purpose": "any maskable"
-    },
-    {
-      "src": "https://i.ibb.co/TDt1SgGH/7d41b8ed-0b55-4aef-bc8e-6d20ea913649.jpg",
-      "sizes": "512x512",
-      "type": "image/jpeg",
-      "purpose": "any maskable"
-    }
-  ]
+"name": "MELOFY",
+"short_name": "MELOFY",
+"start_url": ".",
+"display": "standalone",
+"background_color": "#0a0a0a",
+"theme_color": "#0a0a0a",
+"description": "A modern music streaming web app with AI-powered recommendations.",
+"icons": [
+{
+"src": "https://i.ibb.co/TDt1SgGH/7d41b8ed-0b55-4aef-bc8e-6d20ea913649.jpg",
+"sizes": "192x192",
+"type": "image/jpeg",
+"purpose": "any maskable"
+},
+{
+"src": "https://i.ibb.co/TDt1SgGH/7d41b8ed-0b55-4aef-bc8e-6d20ea913649.jpg",
+"sizes": "512x512",
+"type": "image/jpeg",
+"purpose": "any maskable"
+}
+]
 }
