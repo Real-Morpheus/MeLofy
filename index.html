@@ -1123,45 +1123,45 @@
         }
 
         async function playNextSong(isManualSkip = false) {
-             const playFallback = () => {
-                if (currentSearchResults.length > 0) {
-                    const nextIndex = currentPlayingIndex + 1;
-                    
-                    if (nextIndex >= currentSearchResults.length) {
-                        if (loopState === 1) { // Loop all is on
-                            currentPlayingIndex = 0;
-                            const nextTrack = currentSearchResults[currentPlayingIndex];
-                            if (nextTrack) PlayAudio(nextTrack.downloadUrl[4]['link'], nextTrack.id);
-                        } else { // Loop is off, end of queue
-                            audio.pause();
-                            audio.currentTime = 0;
-                            updatePlayPauseButton(false);
-                            showMessage("End of queue");
-                        }
-                    } else { // Not at the end, just play next
-                        currentPlayingIndex = nextIndex;
-                        const nextTrack = currentSearchResults[currentPlayingIndex];
+            const playNextInQueue = () => {
+                if (!currentSearchResults.length) return;
+
+                const nextIndex = currentPlayingIndex + 1;
+
+                if (nextIndex >= currentSearchResults.length) {
+                    // We've reached the end of the current search results
+                    if (loopState === 1) { // Loop All: Go back to the start
+                        currentPlayingIndex = 0;
+                        const nextTrack = currentSearchResults[0];
                         if (nextTrack) PlayAudio(nextTrack.downloadUrl[4]['link'], nextTrack.id);
+                    } else { // Loop Off: Stop playback
+                        audio.pause();
+                        audio.currentTime = 0;
+                        updatePlayPauseButton(false);
+                        showMessage("End of queue");
                     }
+                } else {
+                    // There are more songs in the queue, play the next one
+                    currentPlayingIndex = nextIndex;
+                    const nextTrack = currentSearchResults[nextIndex];
+                    if (nextTrack) PlayAudio(nextTrack.downloadUrl[4]['link'], nextTrack.id);
                 }
             };
+
+            // If the user MANUALLY skips, we check for an AI suggestion.
+            if (isManualSkip) {
+                // Prefetch a new song to ensure recommendations are fresh on manual skips
+                await prefetchNextAiSong(); 
+                if (nextAiSong) {
+                    showMessage(`AI Playing: ${nextAiSong.songToSearch}`, 4000);
+                    await doSaavnSearch(encodeURIComponent(nextAiSong.songToSearch), true, false, true);
+                    nextAiSong = null; // Clear it after use
+                    return;
+                }
+            }
             
-            if (nextAiSong && !isManualSkip) {
-                showMessage(`AI Playing: ${nextAiSong.songToSearch}`, 4000);
-                await doSaavnSearch(encodeURIComponent(nextAiSong.songToSearch), true, false, true);
-                nextAiSong = null;
-                 return;
-            }
-
-            if(!isManualSkip) await prefetchNextAiSong();
-
-            if (nextAiSong && !isManualSkip) {
-                showMessage(`AI Playing: ${nextAiSong.songToSearch}`, 4000);
-                await doSaavnSearch(encodeURIComponent(nextAiSong.songToSearch), true, false, true);
-                nextAiSong = null;
-            } else {
-                playFallback();
-            }
+            // For natural song ends (autoplay) OR manual skips where AI fails, just play the next song in the queue.
+            playNextInQueue();
         }
 
         async function prefetchNextAiSong() {
