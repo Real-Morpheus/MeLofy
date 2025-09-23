@@ -78,10 +78,6 @@
         .search-query-container {
             display: flex; overflow-x: auto; white-space: nowrap; -webkit-overflow-scrolling: touch;
             scrollbar-width: none; -ms-overflow-style: none;
-            padding-top: 4px; /* Add vertical space for animation */
-            padding-bottom: 8px; /* Add vertical space for shadow */
-            margin-top: 0.875rem; /* Replaces Tailwind's mt-3.5 */
-            margin-bottom: -8px; /* Compensate for the bottom padding to keep layout consistent */
         }
         .search-query-container::-webkit-scrollbar { display: none; }
         .search-query-button {
@@ -94,9 +90,9 @@
             background-color: rgba(245, 158, 11, 0.1);
             color: var(--text-primary); border-color: var(--accent-color);
             transform: translateY(-2px);
-            box-shadow: 0 4px 15px rgba(245, 158, 11, 0.1);
+            box-shadow: 0 4px 15px rgba(245, 158, 11,  0.1);
         }
-        main { padding-top: 150px; padding-bottom: 16rem; }
+        main { padding-top: 170px; padding-bottom: 16rem; }
         /* --- Song Cards --- */
         .video-container {
             background-color: var(--card-bg);
@@ -294,7 +290,7 @@
         }
         #song-info-modal { z-index: 110; transition: opacity 0.3s ease, transform 0.3s ease; }
         @media (max-width: 640px) {
-            main { padding-top: 160px; }
+            main { padding-top: 180px; }
             footer { width: calc(100% - 1rem); border-radius: 1rem; }
             #player-image { width: 48px; height: 48px; }
         }
@@ -302,7 +298,7 @@
 </head>
 <body class="min-h-screen">
     <header class="fixed top-0 left-0 right-0 z-50">
-        <div class="max-w-7xl mx-auto px-4 py-3">
+        <div class="max-w-7xl mx-auto px-4 pt-3 pb-4">
             <div class="flex items-center justify-between gap-4">
                 <div class="flex items-center flex-shrink-0 gap-4">
                     <img src="https://i.ibb.co/TDt1SgGH/7d41b8ed-0b55-4aef-bc8e-6d20ea913649.jpg" alt="Melofy Logo" class="w-10 h-10 rounded-full shadow-lg">
@@ -315,7 +311,7 @@
                     </button>
                 </form>
             </div>
-            <div class="search-query-container">
+            <div class="search-query-container mt-3.5">
                 <button class="search-query-button">Hindi</button>
                 <button class="search-query-button">English</button>
                 <button class="search-query-button">Punjabi</button>
@@ -333,7 +329,7 @@
         <button id="loadmore" class="mt-8 bg-amber-600 hover:bg-amber-700 text-white font-semibold py-2.5 px-6 rounded-full transition duration-300 mx-auto block shadow-lg hover:shadow-amber-500/50">Load More</button>
     </main>
 
-    <div id="message-box" class="fixed top-24 left-1/2 -translate-x-1.2 px-6 py-3 rounded-lg shadow-xl hidden glass-panel" style="z-index: 9999;">
+    <div id="message-box" class="fixed top-24 left-1/2 -translate-x-1/2 px-6 py-3 rounded-lg shadow-xl hidden glass-panel" style="z-index: 9999;">
         <span id="message-text"></span>
     </div>
 
@@ -442,7 +438,7 @@
         // --- Gemini API Configuration ---
         const API_KEY = "AIzaSyA7EykSQjjg7uwNxbFqZAcuzorKA35evuY"; // IMPORTANT: Add your Gemini API Key here
         const API_URL = `https://generativelanguage.googleapis.com/v1beta/models/gemini-2.5-flash-preview-05-20:generateContent?key=${API_KEY}`;
-        
+
         // --- Utility Functions ---
         function showMessage(message, duration = 3000) {
             const msgBox = document.getElementById('message-box');
@@ -612,7 +608,7 @@
                 const results = json.data.results;
 
                 if (!isPage && !autoplayFirstResult) results_container.innerHTML = "";
-                
+
                 if (!results || results.length === 0) {
                     if(!isPage) results_container.innerHTML = "<p class='col-span-full text-center'>No results found.</p>";
                     if(autoplayFirstResult) playNextSong(false);
@@ -705,7 +701,7 @@
         function PlayAudio(audio_url, song_id) {
             const track = currentSearchResults.find(t => t.id === song_id);
             if (!track) return;
-            
+
             const name = decodeHtmlEntities(track.name);
             const artist = decodeHtmlEntities(track.primaryArtists);
             const image = track.image[2].link.replace('150x150', '500x500');
@@ -716,7 +712,7 @@
                 if (playerFooter.classList.contains('hidden')) {
                     playerFooter.classList.remove('hidden');
                 }
-                
+
                 nextAiSong = null;
                 isFetchingNextSong = false;
                 currentPlayingIndex = currentSearchResults.findIndex(t => t.id === song_id);
@@ -737,45 +733,45 @@
                         artwork: [{ src: image, sizes: '512x512', type: 'image/jpeg' }]
                     });
                 }
-                
+
                 document.title = `${name} - ${artist}`;
                 document.getElementById("player-name").textContent = name;
                 document.getElementById("player-artist").textContent = artist;
                 document.getElementById("player-image").src = image;
-                
+
                 playerViewName.textContent = name;
                 playerViewArtist.textContent = artist;
                 playerViewImage.src = image;
-                
+
                 document.getElementById('audioSource').src = audio_url;
                 audio.load();
                 audio.play().catch(error => { showMessage('Playback failed. Interact with page.'); });
-                
+
                 if (slowedReverbEnabled) { applySlowedReverbEffect(); } 
                 else { removeSlowedReverbEffect(); }
-                
+
                 fetchAndProcessLyrics(track);
                 fetchAndDisplaySongInfo(song_id);
                 prefetchNextAiSong();
             };
-            
+
             const isTransitionNeeded = isPlayerViewVisible && audio.currentSrc && currentPlayingIndex !== -1;
 
             if (isTransitionNeeded) {
                 document.body.classList.add('fullscreen-transition');
                 playerView.classList.add('song-changing');
-                
+
                 preloadImage(small_image_for_blur).then(() => {
                     const currentBgEl = activeBg === 1 ? playerViewBg1 : playerViewBg2;
                     const nextBgEl = activeBg === 1 ? playerViewBg2 : playerViewBg1;
-                    
+
                     nextBgEl.style.backgroundImage = `url(${small_image_for_blur})`;
                     nextBgEl.classList.add('visible');
                     currentBgEl.classList.remove('visible');
                     activeBg = activeBg === 1 ? 2 : 1;
-                    
+
                     performUpdateAndPlay();
-                    
+
                     setTimeout(() => {
                         requestAnimationFrame(() => {
                             playerView.classList.remove('song-changing');
@@ -806,7 +802,7 @@
         nextSongButtonView.addEventListener('click', () => playNextSong(true));
         previousSongButton.addEventListener('click', playPreviousSong);
         previousSongButtonView.addEventListener('click', playPreviousSong);
-        
+
         audio.addEventListener('timeupdate', updateProgress);
         audio.addEventListener('loadedmetadata', () => {
             const formattedDuration = formatTime(audio.duration);
@@ -857,7 +853,7 @@
             const formattedCurrentTime = formatTime(audio.currentTime);
             currentTimeElement.textContent = formattedCurrentTime;
             playerViewCurrentTime.textContent = formattedCurrentTime;
-            
+
             updateSyncedLyrics(audio.currentTime);
         }
 
@@ -942,7 +938,7 @@
 
         function updateSyncedLyrics(currentTime) {
             if (!currentLyrics.length || !currentLyrics[0].hasOwnProperty('time')) return;
-            
+
             let newLyricIndex = -1;
             for (let i = 0; i < currentLyrics.length; i++) {
                 if (currentTime >= currentLyrics[i].time) newLyricIndex = i;
@@ -975,9 +971,9 @@
                 const response = await fetch(searchUrl);
                 if (!response.ok) throw new Error('LRC API search failed');
                 const results = await response.json();
-                
+
                 const bestMatch = results.find(r => r.trackName.toLowerCase() === songName.toLowerCase() && r.artistName.toLowerCase() === artistName.toLowerCase()) || results[0];
-                
+
                 if (bestMatch && bestMatch.syncedLyrics) {
                     currentLyrics = parseLRC(bestMatch.syncedLyrics);
                     displayLyrics(currentLyrics, true);
@@ -996,7 +992,7 @@
 
         async function fetchLyricsWithGemini(track) {
             lyricsContent.innerHTML = `<p class="lyrics-line active">Searching with AI...</p>`;
-            
+
             const songName = decodeHtmlEntities(track.name);
             const artistName = decodeHtmlEntities(track.primaryArtists);
             const albumName = decodeHtmlEntities(track.album.name);
@@ -1016,13 +1012,13 @@
 3. If LRC format is not available, provide the plain text lyrics.
 4. The lyrics should be in the original language of the song. For songs in languages like Hindi, provide them in Hinglish (Hindi written in the English alphabet).
 5. **Respond with ONLY the lyrics content (either LRC or plain text). Do not include any headers, titles, or extra explanations like "Here are the lyrics:".**`;
-            
+
             const payload = { contents: [{ parts: [{ text: prompt }] }] };
 
             try {
                 const result = await callGeminiAPI(payload);
                 const text = result.candidates?.[0]?.content?.parts?.[0]?.text;
-                
+
                 if (text) {
                     if (text.includes('[')) { // Simple check for LRC format
                         currentLyrics = parseLRC(text);
@@ -1040,7 +1036,7 @@
                 currentLyrics = [];
             }
         }
-        
+
         async function fetchAndDisplaySongInfo(songId) {
             songInfoContent.innerHTML = `<p>Loading details...</p>`;
             try {
@@ -1164,18 +1160,18 @@
                     return;
                 }
             }
-            
+
             // For natural song ends (autoplay) OR manual skips where AI fails, just play the next song in the queue.
             playNextInQueue();
         }
 
         async function prefetchNextAiSong() {
             if (listeningHistory.length === 0 || isFetchingNextSong) return;
-            
+
             isFetchingNextSong = true;
             const historyText = listeningHistory.slice(-5).join('; ');
             const systemPrompt = `You are an advanced Spotify-style music recommendation engine. Your task is to analyze a user's recent listening history and suggest the perfect next song that keeps the vibe going while introducing discovery and variety. USER INPUT: - ${historyText} YOUR DIRECTIVES: 1. Vibe Analysis: - Analyze the last 1-2 songs to determine primary genre, mood (energetic, chill, sad, romantic, etc.), tempo, and language. - Weight the last song more heavily to define the current listening vibe. 2. Artist Diversity: - Recommend a song from a DIFFERENT ARTIST than the last 2 songs. - Exception: if the user listened to 3+ songs by the same artist consecutively, you may recommend another song by that artist (artist binge). 3. Popularity & Discovery: - Prioritize popular or trending songs in the detected genre/mood. - Introduce variety in tempo, instrumentation, or energy to avoid repetition but keep the vibe consistent. 4. No Repeats: - Never recommend a song already in the user’s recent history. 5. Randomization: - If multiple songs match the criteria, pick one randomly to simulate discovery. 6. Strict Output Format: - Only output: \`Song Name - Artist Name\` - Do NOT include explanations, punctuation outside the format, emojis, or extra text. 7. Bonus Accuracy: - Consider language, instrumentation, and overall energy to ensure the next song feels like a natural continuation of the listening session.`;
-            
+
             const payload = {
                 contents: [{ parts: [{ text: `Based on the user input, recommend the next song.` }] }],
                 systemInstruction: { parts: [{ text: systemPrompt }] }
@@ -1196,7 +1192,7 @@
                 isFetchingNextSong = false;
             }
         }
-        
+
         // --- Loop and Download Logic ---
         const loopSvgs = {
             // A clean, standard repeat icon for the "Off" state.
@@ -1226,7 +1222,7 @@
 
         loopButtonFooter.addEventListener('click', toggleLoop);
         loopButtonView.addEventListener('click', toggleLoop);
-        
+
         function downloadCurrentSong() {
             const currentTrack = currentSearchResults[currentPlayingIndex];
             if (!currentTrack) {
@@ -1244,7 +1240,7 @@
             link.href = songUrl;
             link.target = '_blank';
             link.download = fileName; 
-            
+
             document.body.appendChild(link);
             link.click();
             document.body.removeChild(link);
