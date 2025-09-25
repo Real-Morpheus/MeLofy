@@ -436,9 +436,7 @@
 
     <script>
         // --- Gemini API Configuration ---
-        // ⚠️ IMPORTANT: Replace "YOUR_GEMINI_API_KEY" with your actual Google AI Gemini API Key.
-        // The AI-powered features (lyrics search, song recommendations) will NOT work without a valid key.
-        const API_KEY = "AIzaSyA7EykSQjjg7uwNxbFqZAcuzorKA35evuY";
+        const API_KEY = "AIzaSyA7EykSQjjg7uwNxbFqZAcuzorKA35evuY"; // IMPORTANT: Add your Gemini API Key here
         const API_URL = `https://generativelanguage.googleapis.com/v1beta/models/gemini-2.5-flash-preview-05-20:generateContent?key=${API_KEY}`;
 
         // --- Utility Functions ---
@@ -520,9 +518,8 @@
 
         // --- API Call Function ---
         async function callGeminiAPI(payload, retries = 3, delay = 1000) {
-            if (!API_KEY || API_KEY === "YOUR_GEMINI_API_KEY") {
-                console.error("Gemini API Key is missing or is a placeholder. AI features are disabled.");
-                showMessage("AI features disabled: Invalid API Key");
+            if (!API_KEY) {
+                console.error("Gemini API Key is missing. AI features are disabled.");
                 return null;
             }
             for (let i = 0; i < retries; i++) {
@@ -533,25 +530,13 @@
                         body: JSON.stringify(payload)
                     });
                     if (!response.ok) throw new Error(`HTTP error! status: ${response.status}`);
-
-                    // Defensive JSON parsing to prevent "Unexpected token '<'" error
-                    const responseText = await response.text();
-                    try {
-                        return JSON.parse(responseText);
-                    } catch (e) {
-                        console.error("Failed to parse Gemini API response. It might be an HTML error page due to an invalid API key.", responseText);
-                        throw new Error("Invalid JSON response from Gemini API.");
-                    }
+                    return await response.json();
                 } catch (error) {
                     console.error(`API call attempt ${i + 1} failed:`, error);
-                    if (i === retries - 1) {
-                         showMessage("AI feature failed after multiple retries.");
-                         return null; // Return null instead of throwing to prevent crash
-                    }
+                    if (i === retries - 1) throw error;
                     await new Promise(res => setTimeout(res, delay * Math.pow(2, i)));
                 }
             }
-            return null;
         }
 
         // --- Media Session Logic ---
@@ -984,27 +969,20 @@
             try {
                 const searchUrl = `https://lrclib.net/api/search?track_name=${encodeURIComponent(songName)}&artist_name=${encodeURIComponent(artistName)}`;
                 const response = await fetch(searchUrl);
-                if (!response.ok) throw new Error('LRC API search failed with status ' + response.status);
+                if (!response.ok) throw new Error('LRC API search failed');
+                const results = await response.json();
 
-                const textResponse = await response.text();
-                try {
-                    const results = JSON.parse(textResponse);
-                    const bestMatch = results.find(r => r.trackName.toLowerCase() === songName.toLowerCase() && r.artistName.toLowerCase() === artistName.toLowerCase()) || results[0];
+                const bestMatch = results.find(r => r.trackName.toLowerCase() === songName.toLowerCase() && r.artistName.toLowerCase() === artistName.toLowerCase()) || results[0];
 
-                    if (bestMatch && bestMatch.syncedLyrics) {
-                        currentLyrics = parseLRC(bestMatch.syncedLyrics);
-                        displayLyrics(currentLyrics, true);
-                        return;
-                    } else if (bestMatch && bestMatch.plainLyrics) {
-                        currentLyrics = bestMatch.plainLyrics.split('\n').map(line => ({ text: line }));
-                        displayLyrics(currentLyrics, false);
-                        return;
-                    }
-                } catch (jsonError) {
-                    console.error("Failed to parse lyrics from lrclib.net, it may have returned HTML.", jsonError);
-                    throw new Error("lrclib.net did not return valid JSON.");
+                if (bestMatch && bestMatch.syncedLyrics) {
+                    currentLyrics = parseLRC(bestMatch.syncedLyrics);
+                    displayLyrics(currentLyrics, true);
+                    return;
+                } else if (bestMatch && bestMatch.plainLyrics) {
+                    currentLyrics = bestMatch.plainLyrics.split('\n').map(line => ({ text: line }));
+                    displayLyrics(currentLyrics, false);
+                    return;
                 }
-
                 throw new Error("No lyrics found on lrclib.net, trying AI.");
             } catch (error) {
                 console.log(error.message);
@@ -1039,8 +1017,6 @@
 
             try {
                 const result = await callGeminiAPI(payload);
-                 if (!result) throw new Error("AI call returned null, likely due to invalid API Key.");
-
                 const text = result.candidates?.[0]?.content?.parts?.[0]?.text;
 
                 if (text) {
