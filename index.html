@@ -290,9 +290,33 @@
         }
         #song-info-modal { z-index: 110; transition: opacity 0.3s ease, transform 0.3s ease; }
         @media (max-width: 640px) {
-            main { padding-top: 180px; }
-            footer { width: calc(100% - 1rem); border-radius: 1rem; }
+            main { padding-top: 160px; padding-bottom: 12rem; }
+            footer { width: calc(100% - 1rem); border-radius: 1rem; padding: 0.75rem; }
             #player-image { width: 48px; height: 48px; }
+            .player-controls button { width: 40px; height: 40px; }
+            .play-pause-btn { width: 50px; height: 50px; }
+            .player-controls svg { width: 1rem; height: 1rem; }
+            #previous-song-view, #next-song-view { width: 50px !important; height: 50px !important; }
+            #play-pause-view { width: 60px !important; height: 60px !important; }
+            #previous-song-view svg, #next-song-view svg { width: 1.5rem; height: 1.5rem; }
+            #play-pause-view svg { width: 1.75rem; height: 1.75rem; }
+            #player-view { padding: 0 0.5rem env(safe-area-inset-bottom) 0.5rem; }
+            #player-view-image { max-width: 80vw; }
+            #player-view-name { font-size: 1.5rem; }
+            #player-view-artist { font-size: 0.875rem; }
+            .lyrics-line { font-size: 1.25rem; line-height: 1.5; }
+            #lyrics-view { padding: 1.5rem; }
+            #lyrics-content { font-size: 1.25rem; line-height: 1.5; }
+            .search-query-button { padding: 4px 10px; font-size: 12px; margin-right: 6px; }
+            #saavn-search-box { font-size: 14px; padding: 8px 16px; }
+            .video-container h3 { font-size: 0.875rem; }
+            .video-container p { font-size: 0.75rem; }
+            .video-container { border-radius: 1rem; }
+            .video-container .p-4 { padding: 0.75rem 0.5rem; }
+            .progress-container { height: 6px; }
+            .lofi-toggle { width: 40px; height: 20px; padding: 2px; }
+            .lofi-toggle-knob { width: 16px; height: 16px; }
+            .lofi-toggle.active .lofi-toggle-knob { transform: translateX(20px); }
         }
     </style>
 </head>
